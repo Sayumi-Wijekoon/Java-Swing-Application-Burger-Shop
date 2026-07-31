@@ -10,18 +10,35 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 /**
  *
  * @author sayum
  */
 public class ManageCustomersForm extends javax.swing.JFrame {
+    
+    
+    private CustomerFormController customerFormController;
+    
+    public ManageCustomersForm() {
+    initComponents();
+}
 
     /**
      * Creates new form ManageCustomersForm
      */
-    public ManageCustomersForm() {
-        initComponents();
+    public ManageCustomersForm(CustomerFormController controller){
+         initComponents();
+         this.customerFormController = controller;
+       
+    }
+    
+    private void clearFields() {
+        txtCustomerId.setText("");
+        txtCustomerName.setText("");
+        txtCustomerAddress.setText("");
+        txtCustomerContactNo.setText("");
     }
 
     /**
@@ -47,11 +64,10 @@ public class ManageCustomersForm extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         btnAddCustomerOnAction = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnUpdateCustomerOnAction = new javax.swing.JButton();
+        btnDeleteCustomerOnAction = new javax.swing.JButton();
+        btnBackOnAction = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,29 +128,6 @@ public class ManageCustomersForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel2.setBackground(new java.awt.Color(255, 102, 102));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Back");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel8)
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         btnAddCustomerOnAction.setBackground(new java.awt.Color(0, 204, 0));
         btnAddCustomerOnAction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAddCustomerOnAction.setForeground(new java.awt.Color(255, 255, 255));
@@ -145,15 +138,35 @@ public class ManageCustomersForm extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 102, 102));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Update");
+        btnUpdateCustomerOnAction.setBackground(new java.awt.Color(255, 102, 102));
+        btnUpdateCustomerOnAction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnUpdateCustomerOnAction.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdateCustomerOnAction.setText("Update");
+        btnUpdateCustomerOnAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateCustomerOnActionActionPerformed(evt);
+            }
+        });
 
-        jButton3.setBackground(new java.awt.Color(255, 102, 102));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Delete");
+        btnDeleteCustomerOnAction.setBackground(new java.awt.Color(255, 102, 102));
+        btnDeleteCustomerOnAction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDeleteCustomerOnAction.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteCustomerOnAction.setText("Delete");
+        btnDeleteCustomerOnAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteCustomerOnActionActionPerformed(evt);
+            }
+        });
+
+        btnBackOnAction.setBackground(new java.awt.Color(0, 0, 0));
+        btnBackOnAction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBackOnAction.setForeground(new java.awt.Color(255, 255, 255));
+        btnBackOnAction.setText("Back");
+        btnBackOnAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackOnActionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,6 +176,9 @@ public class ManageCustomersForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBackOnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,21 +204,20 @@ public class ManageCustomersForm extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(btnAddCustomerOnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnUpdateCustomerOnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)))))
-                        .addGap(13, 13, 13))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25))
+                                        .addComponent(btnDeleteCustomerOnAction, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)))))))
+                .addGap(38, 38, 38))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -225,15 +240,12 @@ public class ManageCustomersForm extends javax.swing.JFrame {
                             .addComponent(txtCustomerContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAddCustomerOnAction, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)))
-                        .addGap(16, 16, 16))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                            .addComponent(btnDeleteCustomerOnAction, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                            .addComponent(btnUpdateCustomerOnAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAddCustomerOnAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(49, 49, 49)
+                        .addComponent(btnBackOnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))))
         );
 
         pack();
@@ -247,8 +259,9 @@ public class ManageCustomersForm extends javax.swing.JFrame {
       
      Customer customer = new Customer(id, name, address, contactNo);
      
-     CustomerFormController customerFormController =new CustomerFormController();
+     //CustomerFormController customerFormController =new CustomerFormController();
      boolean isAddCustomer = customerFormController.addCustomer(customer);
+     
      
       if (isAddCustomer) {
             JOptionPane.showMessageDialog(
@@ -258,22 +271,16 @@ public class ManageCustomersForm extends javax.swing.JFrame {
                 JOptionPane.INFORMATION_MESSAGE
             );
             
+            
+            
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); 
             
              model.insertRow(0,new Object[]{id, name, address, contactNo});    
              
-        /*private void clearFields() {
-    txtCustomerId.setText("");
-    txtCustomerName.setText("");
-    txtCustomerAddress.setText("");
-    txtCustomerContactNo.setText("");*/
+        clearFields();
+    
         
        
-        
-
-
-
-        
         } else {
             JOptionPane.showMessageDialog(
                 this,
@@ -288,10 +295,111 @@ public class ManageCustomersForm extends javax.swing.JFrame {
      
     }//GEN-LAST:event_btnAddCustomerOnActionActionPerformed
 
+    private void btnUpdateCustomerOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCustomerOnActionActionPerformed
+      String id = txtCustomerId.getText();
+      String name = txtCustomerName.getText();
+      String address = txtCustomerAddress.getText();
+      String contactNo = txtCustomerContactNo.getText();
+      
+     Customer customer = new Customer(id, name, address, contactNo);
+     
+     //CustomerFormController customerFormController =new CustomerFormController();
+     boolean isUpdated = customerFormController.updateCustomer(customer);
+     
+     
+      if (isUpdated) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Customer Updated successfully!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); 
+            
+            int selectedRow = jTable1.getSelectedRow();
+            if(selectedRow != -1){
+                model.setValueAt(id,selectedRow,0);
+                model.setValueAt(name,selectedRow,1);
+                model.setValueAt(address,selectedRow,2);
+                model.setValueAt(contactNo,selectedRow,3);
+                
+                
+            }
+     
+          clearFields();
+      }else{
+              JOptionPane.showMessageDialog(
+                this,
+                "Failed to update customer. Make sure the ID exists.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE   
+              );
+              }
+            
+            
+            
+    }//GEN-LAST:event_btnUpdateCustomerOnActionActionPerformed
+
+    private void btnDeleteCustomerOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustomerOnActionActionPerformed
+      String id = txtCustomerId.getText();
+      String name = txtCustomerName.getText();
+      String address = txtCustomerAddress.getText();
+      String contactNo = txtCustomerContactNo.getText();
+      
+     Customer customer = new Customer(id, name, address, contactNo);
+     
+   //  CustomerFormController customerFormController =new CustomerFormController();
+     boolean isDeleted = customerFormController.deleteCustomer(customer);
+     
+     
+      if (isDeleted) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Customer deleted successfully!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); 
+            
+             int selectedRow = jTable1.getSelectedRow();
+            if(selectedRow != -1){
+                model.removeRow(selectedRow);
+            }
+            
+             //model.insertRow(0,new Object[]{id, name, address, contactNo});  
+     
+          clearFields();
+      }else{
+              JOptionPane.showMessageDialog(
+                this,
+                "Failed to delete customer. Make sure the ID exists.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE   
+              );
+              }
+            
+            
+    }//GEN-LAST:event_btnDeleteCustomerOnActionActionPerformed
+
+    private void btnBackOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackOnActionActionPerformed
+             MainDashBoardForm dashboard = new MainDashBoardForm();
+             
+             dashboard.setVisible(true);
+             
+             this.dispose();
+    }//GEN-LAST:event_btnBackOnActionActionPerformed
+
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+       //  ArrayList<Customer> customerList = new ArrayList<>();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -325,8 +433,9 @@ public class ManageCustomersForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCustomerOnAction;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnBackOnAction;
+    private javax.swing.JButton btnDeleteCustomerOnAction;
+    private javax.swing.JButton btnUpdateCustomerOnAction;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -334,9 +443,7 @@ public class ManageCustomersForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtCustomerAddress;

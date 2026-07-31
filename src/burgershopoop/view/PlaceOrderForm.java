@@ -4,18 +4,40 @@
  */
 package burgershopoop.view;
 
+import java.util.ArrayList;
+import burgershopoop.model.Customer;
+import burgershopoop.controller.CustomerFormController;
+import javax.swing.*;
+import burgershopoop.model.Order;
+
 /**
  *
  * @author sayum
  */
 public class PlaceOrderForm extends javax.swing.JFrame {
-
+    
+     private CustomerFormController customerFormController;
+    
+   
     /**
      * Creates new form PlaceOrderForm
      */
     public PlaceOrderForm() {
         initComponents();
     }
+    
+     public PlaceOrderForm(CustomerFormController controller){
+         initComponents();
+         this.customerFormController = controller;
+       
+    }
+     
+    /* private void clearFields() {
+        txtCustomerId.setText("");
+        txtCustomerName.setText("");
+        txtCustomerAddress.setText("");
+        txtCustomerContactNo.setText("");
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,9 +67,9 @@ public class PlaceOrderForm extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnPlaceOrderOnAction = new javax.swing.JButton();
+        btnBackOnAction = new javax.swing.JButton();
+        btnCancelOnAction = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -115,20 +137,30 @@ public class PlaceOrderForm extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processing", "Pending", "Delivered", "Canceled" }));
 
-        jButton2.setBackground(new java.awt.Color(0, 204, 0));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Place Order");
+        btnPlaceOrderOnAction.setBackground(new java.awt.Color(0, 204, 0));
+        btnPlaceOrderOnAction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnPlaceOrderOnAction.setForeground(new java.awt.Color(255, 255, 255));
+        btnPlaceOrderOnAction.setText("Place Order");
 
-        jButton3.setBackground(new java.awt.Color(255, 102, 102));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Back");
+        btnBackOnAction.setBackground(new java.awt.Color(0, 0, 0));
+        btnBackOnAction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBackOnAction.setForeground(new java.awt.Color(255, 255, 255));
+        btnBackOnAction.setText("Back");
+        btnBackOnAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackOnActionActionPerformed(evt);
+            }
+        });
 
-        jButton4.setBackground(new java.awt.Color(255, 102, 102));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Cancel");
+        btnCancelOnAction.setBackground(new java.awt.Color(255, 102, 102));
+        btnCancelOnAction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancelOnAction.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelOnAction.setText("Cancel");
+        btnCancelOnAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelOnActionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,10 +209,10 @@ public class PlaceOrderForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                            .addComponent(btnCancelOnAction, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)))))
+                                .addComponent(btnBackOnAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnPlaceOrderOnAction, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)))))
                 .addGap(42, 42, 42))
         );
         layout.setVerticalGroup(
@@ -198,7 +230,7 @@ public class PlaceOrderForm extends javax.swing.JFrame {
                         .addGap(44, 44, 44))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPlaceOrderOnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -210,7 +242,7 @@ public class PlaceOrderForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBackOnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)))
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -225,7 +257,7 @@ public class PlaceOrderForm extends javax.swing.JFrame {
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelOnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8)
@@ -242,10 +274,24 @@ public class PlaceOrderForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
+    private void btnBackOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackOnActionActionPerformed
+         MainDashBoardForm dashboard = new MainDashBoardForm();
+             
+             dashboard.setVisible(true);
+             
+             this.dispose();
+    }//GEN-LAST:event_btnBackOnActionActionPerformed
+
+    private void btnCancelOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelOnActionActionPerformed
+              //
+
+    }//GEN-LAST:event_btnCancelOnActionActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        // ArrayList<Customer> customerList = new ArrayList<>();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -278,10 +324,10 @@ public class PlaceOrderForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBackOnAction;
+    private javax.swing.JButton btnCancelOnAction;
+    private javax.swing.JButton btnPlaceOrderOnAction;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;

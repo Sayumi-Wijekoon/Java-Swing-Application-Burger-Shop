@@ -13,13 +13,41 @@ import java.util.ArrayList;
  * @author sayum
  */
 public class CustomerFormController {
-   ArrayList<Customer> customerList = new ArrayList<>();
+ //  ArrayList<Customer> customerList = new ArrayList<>();
+    
+    private ArrayList<Customer> customerList;
+
+    public CustomerFormController(ArrayList<Customer> customerList) {
+        this.customerList = customerList;
+    }
+    
    
    public boolean addCustomer(Customer customer){
        customerList.add(customer);
        return true;
    
    }
+   
+   public boolean updateCustomer(Customer customer){
+        for(int i=0;i < customerList.size();i++){
+            if(customerList.get(i).getId().equals(customer.getId())){
+                customerList.set(i, customer);
+                return true;
+        }
+        }
+         return false;
+   }
+   
+   public boolean deleteCustomer(Customer customer){
+         for(int i=0;i < customerList.size();i++){
+            if(customerList.get(i).getId().equals(customer.getId())){
+                customerList.remove(i);
+                return true;
+        }
+        }
+         return false;
+   }
+   
 }
 
 

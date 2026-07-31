@@ -5,6 +5,8 @@
 package burgershopoop.model;
 
 import burgershoputil.OrderStatus;
+import java.util.Date;
+
 
 /**
  *
