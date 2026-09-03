@@ -4,18 +4,34 @@
  */
 package burgershopoop.view;
 
+import burgershopoop.model.Customer;
+import burgershopoop.model.Order;
+import burgershopoop.model.OrderItem;
+import burgershopoop.model.Item;
+import java.util.ArrayList;
+
+
 /**
  *
  * @author sayum
  */
 public class SearchForm extends javax.swing.JFrame {
-
+    private static SearchForm instance;
     /**
      * Creates new form SearchForm
      */
-    public SearchForm() {
+     public SearchForm() {
         initComponents();
+        this.setLocationRelativeTo(null); // Center the screen
+        
+        // 2. Save this active instance when the Search menu is opened
+        instance = this;
     }
+    
+    public static SearchForm getInstance(){
+            return instance;
+        }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,7 +50,7 @@ public class SearchForm extends javax.swing.JFrame {
         btnSearchBestCustomersOnAction = new javax.swing.JButton();
         btnSearchOrderDetailsFormOnAction = new javax.swing.JButton();
         btnSearchOrderListFormOnAction = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnBackOnActionActionPerformed = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,10 +132,15 @@ public class SearchForm extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(0, 0, 0));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Back");
+        btnBackOnActionActionPerformed.setBackground(new java.awt.Color(0, 0, 0));
+        btnBackOnActionActionPerformed.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBackOnActionActionPerformed.setForeground(new java.awt.Color(255, 255, 255));
+        btnBackOnActionActionPerformed.setText("Back");
+        btnBackOnActionActionPerformed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackOnActionActionPerformedActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,7 +158,7 @@ public class SearchForm extends javax.swing.JFrame {
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBackOnActionActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -161,7 +182,7 @@ public class SearchForm extends javax.swing.JFrame {
                         .addGap(67, 67, 67)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBackOnActionActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -184,6 +205,11 @@ public class SearchForm extends javax.swing.JFrame {
     private void btnSearchOrderListFormOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchOrderListFormOnActionActionPerformed
         new SearchOrderListForm().setVisible(true);
     }//GEN-LAST:event_btnSearchOrderListFormOnActionActionPerformed
+
+    private void btnBackOnActionActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackOnActionActionPerformedActionPerformed
+             MainDashBoardForm.getInstance().setVisible(true); 
+             this.dispose();
+    }//GEN-LAST:event_btnBackOnActionActionPerformedActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,10 +249,10 @@ public class SearchForm extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBackOnActionActionPerformed;
     private javax.swing.JButton btnSearchBestCustomersOnAction;
     private javax.swing.JButton btnSearchOrderDetailsFormOnAction;
     private javax.swing.JButton btnSearchOrderListFormOnAction;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;

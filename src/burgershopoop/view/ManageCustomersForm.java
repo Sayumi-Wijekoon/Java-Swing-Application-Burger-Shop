@@ -4,7 +4,7 @@
  */
 package burgershopoop.view;
 
-import burgershopoop.controller.CustomerFormController;
+import burgershopoop.controller.CustomerController;
 import burgershopoop.model.Customer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,17 +19,19 @@ import java.util.ArrayList;
 public class ManageCustomersForm extends javax.swing.JFrame {
     
     
-    private CustomerFormController customerFormController;
+    private CustomerController customerFormController;
     
     public ManageCustomersForm() {
     initComponents();
+     this.setLocationRelativeTo(null); 
 }
 
     /**
      * Creates new form ManageCustomersForm
      */
-    public ManageCustomersForm(CustomerFormController controller){
+    public ManageCustomersForm(CustomerController controller){
          initComponents();
+         
          this.customerFormController = controller;
        
     }
@@ -235,9 +237,9 @@ public class ManageCustomersForm extends javax.swing.JFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCustomerAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCustomerContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCustomerContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnDeleteCustomerOnAction, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
@@ -384,9 +386,7 @@ public class ManageCustomersForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteCustomerOnActionActionPerformed
 
     private void btnBackOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackOnActionActionPerformed
-             MainDashBoardForm dashboard = new MainDashBoardForm();
-             
-             dashboard.setVisible(true);
+         MainDashBoardForm.getInstance().setVisible(true);
              
              this.dispose();
     }//GEN-LAST:event_btnBackOnActionActionPerformed

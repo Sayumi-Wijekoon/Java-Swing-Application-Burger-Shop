@@ -12,12 +12,12 @@ import java.util.ArrayList;
  *
  * @author sayum
  */
-public class CustomerFormController {
+public class CustomerController {
  //  ArrayList<Customer> customerList = new ArrayList<>();
     
     private ArrayList<Customer> customerList;
 
-    public CustomerFormController(ArrayList<Customer> customerList) {
+    public CustomerController(ArrayList<Customer> customerList) {
         this.customerList = customerList;
     }
     

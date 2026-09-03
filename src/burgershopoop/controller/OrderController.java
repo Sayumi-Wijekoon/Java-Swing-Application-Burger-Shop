@@ -11,12 +11,12 @@ import java.util.ArrayList;
  *
  * @author sayum
  */
-public class PlaceOrderFormController {
+public class OrderController {
    // private ArrayList<Customer> sharedList = new ArrayList<>();
 //private CustomerFormController customerFormController = new CustomerFormController(sharedList);
     private ArrayList<Customer> customerList;
 
-    public PlaceOrderFormController(ArrayList<Customer> customerList) {
+    public OrderController(ArrayList<Customer> customerList) {
         this.customerList = customerList;
 }
 }

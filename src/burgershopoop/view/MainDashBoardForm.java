@@ -15,13 +15,23 @@ import java.util.ArrayList;
  */
 public class MainDashBoardForm extends javax.swing.JFrame {
 
-    
+    private static MainDashBoardForm instance;
     /**
      * Creates new form MainDashBoardForm
      */
     public MainDashBoardForm() {
         initComponents();
+          this.setLocationRelativeTo(null); 
+        
+        // 2. Save this active instance when the program starts
+        instance = this;
     }
+
+    // 3. Create a static method so any other screen can access this dashboard
+    public static MainDashBoardForm getInstance() {
+        return instance;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

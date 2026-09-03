@@ -6,7 +6,7 @@ package burgershopoop.view;
 
 import java.util.ArrayList;
 import burgershopoop.model.Customer;
-import burgershopoop.controller.CustomerFormController;
+import burgershopoop.controller.CustomerController;
 import javax.swing.*;
 import burgershopoop.model.Order;
 
@@ -16,7 +16,7 @@ import burgershopoop.model.Order;
  */
 public class PlaceOrderForm extends javax.swing.JFrame {
     
-     private CustomerFormController customerFormController;
+     private CustomerController customerFormController;
     
    
     /**
@@ -24,10 +24,12 @@ public class PlaceOrderForm extends javax.swing.JFrame {
      */
     public PlaceOrderForm() {
         initComponents();
+         this.setLocationRelativeTo(null); 
     }
     
-     public PlaceOrderForm(CustomerFormController controller){
+     public PlaceOrderForm(CustomerController controller){
          initComponents();
+         
          this.customerFormController = controller;
        
     }
@@ -275,9 +277,10 @@ public class PlaceOrderForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void btnBackOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackOnActionActionPerformed
-         MainDashBoardForm dashboard = new MainDashBoardForm();
+       /*  MainDashBoardForm dashboard = new MainDashBoardForm();
              
-             dashboard.setVisible(true);
+             dashboard.setVisible(true);*/
+       MainDashBoardForm.getInstance().setVisible(true); 
              
              this.dispose();
     }//GEN-LAST:event_btnBackOnActionActionPerformed
