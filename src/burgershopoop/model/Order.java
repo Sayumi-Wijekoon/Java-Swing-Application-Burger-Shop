@@ -13,24 +13,24 @@ import java.util.Date;
  * @author sayum
  */
 public class Order {
-    private String id;
+    private String orderId;
     private String customerId;
     private Date orderDate;
     private OrderStatus orderStatus;
 
-    public Order(String id, String customerId, Date orderDate, OrderStatus orderStatus) {
-        this.id = id;
+    public Order(String orderId, String customerId, Date orderDate, OrderStatus orderStatus) {
+        this.orderId = orderId;
         this.customerId = customerId;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
     }
 
-    public String getId() {
-        return id;
+    public String getorderId() {
+        return orderId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setorderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getCustomerId() {
@@ -59,6 +59,6 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "id=" + id + ", customerId=" + customerId + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + '}';
+        return "Order{" + "orderId=" + orderId + ", customerId=" + customerId + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + '}';
     }
 }
