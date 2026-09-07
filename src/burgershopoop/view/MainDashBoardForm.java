@@ -4,7 +4,11 @@
  */
 package burgershopoop.view;
 
+import burgershopoop.controller.OrderController;
 import burgershopoop.model.Customer;
+import burgershopoop.model.Item;
+import burgershopoop.model.Order;
+import burgershopoop.model.OrderItem;
 import java.util.ArrayList;
 
 
@@ -14,6 +18,8 @@ import java.util.ArrayList;
  * @author sayum
  */
 public class MainDashBoardForm extends javax.swing.JFrame {
+    
+    private OrderController orderController;
 
     private static MainDashBoardForm instance;
     /**
@@ -22,7 +28,14 @@ public class MainDashBoardForm extends javax.swing.JFrame {
     public MainDashBoardForm() {
         initComponents();
           this.setLocationRelativeTo(null); 
-        
+          
+          ArrayList<Customer> customerList = new ArrayList<>();
+           ArrayList<Item> itemList = new ArrayList<>();
+            ArrayList<Order> orderList = new ArrayList<>();
+             ArrayList<OrderItem> orderItemList = new ArrayList<>();
+          
+        this.orderController = new OrderController(customerList,itemList,orderList,orderItemList);
+             
         // 2. Save this active instance when the program starts
         instance = this;
     }
@@ -219,7 +232,9 @@ public class MainDashBoardForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPlaceOrderOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaceOrderOnActionActionPerformed
-        new PlaceOrderForm().setVisible(true);
+        PlaceOrderForm placeOrderForm = new PlaceOrderForm (orderController);
+        placeOrderForm.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnPlaceOrderOnActionActionPerformed
 
     private void btnSearchOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchOnActionActionPerformed

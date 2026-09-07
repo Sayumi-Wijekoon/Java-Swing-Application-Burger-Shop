@@ -39,12 +39,48 @@ public class OrderController {
         }
     }
      
+    public String generateNextOrderId(){
+    if (orderList == null || orderList.isEmpty()){
+        return "O001";
+    }
     
+    Order lastOrder = orderList.get(orderList.size()-1);
     
+    String lastId = lastOrder.getorderId();
     
+    try{
+        
+        int lastNum = Integer.parseInt(lastId.substring(1));
+        
+        return String.format("O%03d",lastNum +1);
+    }catch (NumberFormatException e){
+        return String.format("O%03d", orderList.size()+1);
+    }
+    }
     
+    public String generateNextCustomerId(){
+        
+        if(customerList == null || customerList.isEmpty()){
+            return "C001";
+        }
+        
+         Customer lastCustomer = customerList.get(customerList.size()-1);
+        
+         String lastId = lastCustomer.getId(); 
+        
+        try{
+            int lastNum = Integer.parseInt(lastId.substring(1));
+            
+            return String.format("C%03d", lastNum +1);
+            
+        }catch (NumberFormatException e){
+        return String.format("C%03d", customerList.size()+1);
+    }
+    }
+    
+    }
    
-}
+
     
     
 
