@@ -9,24 +9,24 @@ package burgershopoop.model;
  * @author sayum
  */
 public class Customer {
-    private String id;
+    private String customerId;
     private String name;
     private String address;
     private String contactNo;
 
-    public Customer(String id, String name, String address, String contactNo) {
-        this.id = id;
+    public Customer(String customerId, String name, String address, String contactNo) {
+        this.customerId = customerId;
         this.name = name;
         this.address = address;
         this.contactNo = contactNo;
     }
 
-    public String getId() {
-        return id;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCustomerId(String id) {
+        this.customerId= customerId;
     }
 
     public String getName() {

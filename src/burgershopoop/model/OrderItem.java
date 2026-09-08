@@ -9,26 +9,26 @@ package burgershopoop.model;
  * @author sayum
  */
 public class OrderItem {
-    private String id;
+    private String orderItemId;
     private String orderId;
-    private String itemCode;
+   // private String itemCode;
     private int qtyOnHand;
     private double unitPrice;
 
-    public OrderItem(String id, String orderId, String itemCode, int qtyOnHand, double unitPrice) {
-        this.id = id;
+    public OrderItem(String orderItemId, String orderId, String itemCode, int qtyOnHand, double unitPrice) {
+        this.orderItemId = orderItemId;
         this.orderId = orderId;
-        this.itemCode = itemCode;
+        //this.itemCode = itemCode;
         this.qtyOnHand = qtyOnHand;
         this.unitPrice = unitPrice;
     }
 
-    public String getId() {
-        return id;
+    public String getOrderItemId() {
+        return orderItemId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setOrderItemId(String id) {
+        this.orderItemId= orderItemId;
     }
 
     public String getOrderId() {
@@ -39,13 +39,13 @@ public class OrderItem {
         this.orderId = orderId;
     }
 
-    public String getItemCode() {
-        return itemCode;
-    }
+  //  public String getItemCode() {
+  //      return itemCode;
+  //  }
 
-    public void setItemCode(String itemCode) {
-        this.itemCode = itemCode;
-    }
+//    public void setItemCode(String itemCode) {
+//        this.itemCode = itemCode;
+//    }
 
     public int getQtyOnHand() {
         return qtyOnHand;
@@ -65,7 +65,7 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        return "OrderItem{" + "id=" + id + ", orderId=" + orderId + ", itemCode=" + itemCode + ", qtyOnHand=" + qtyOnHand + ", unitPrice=" + unitPrice + '}';
+        return "OrderItem{" + "orderItemIdd=" + orderItemId + ", orderId=" + orderId + ", qtyOnHand=" + qtyOnHand + ", unitPrice=" + unitPrice + '}';
     }
     
     

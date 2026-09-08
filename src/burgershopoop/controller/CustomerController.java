@@ -30,7 +30,7 @@ public class CustomerController {
    
    public boolean updateCustomer(Customer customer){
         for(int i=0;i < customerList.size();i++){
-            if(customerList.get(i).getId().equals(customer.getId())){
+            if(customerList.get(i).getCustomerId().equals(customer.getCustomerId())){
                 customerList.set(i, customer);
                 return true;
         }
@@ -40,7 +40,7 @@ public class CustomerController {
    
    public boolean deleteCustomer(Customer customer){
          for(int i=0;i < customerList.size();i++){
-            if(customerList.get(i).getId().equals(customer.getId())){
+            if(customerList.get(i).getCustomerId().equals(customer.getCustomerId())){
                 customerList.remove(i);
                 return true;
         }

@@ -7,8 +7,11 @@ package burgershopoop.view;
 import java.util.ArrayList;
 import burgershopoop.model.Customer;
 import burgershopoop.controller.OrderController;
+
 import javax.swing.*;
 import burgershopoop.model.Order;
+import burgershoputil.OrderStatus;
+
 
 /**
  *
@@ -51,6 +54,18 @@ public class PlaceOrderForm extends javax.swing.JFrame {
             txtCustomerId.setEditable(false);
          }
 }
+     private void clearFormFields() {
+    txtCustomerId.setText("");
+    txtCustomerName.setText("");
+    txtQty.setText("");
+    lblNetTotal.setText("0.00");
+    
+    // Reset status dropdown to the first selection ("Pending.." or "PREPARING")
+    cmbOrderStatus.setSelectedIndex(0);
+    
+    // Automatically generate and display the next sequential IDs!
+    generateAndDisplayIDs();
+}
 
      
     /* private void clearFields() {
@@ -86,11 +101,13 @@ public class PlaceOrderForm extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbOrderStatus = new javax.swing.JComboBox<>();
         btnPlaceOrderOnAction = new javax.swing.JButton();
         btnBackOnAction = new javax.swing.JButton();
         btnCancelOnAction = new javax.swing.JButton();
         lblNetTotal = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtCustomerName = new javax.swing.JTextField();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -167,12 +184,17 @@ public class PlaceOrderForm extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setText("Net Total :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processing", "Pending", "Delivered", "Canceled" }));
+        cmbOrderStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processing", "Pending", "Delivered", "Canceled" }));
 
         btnPlaceOrderOnAction.setBackground(new java.awt.Color(0, 204, 0));
         btnPlaceOrderOnAction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnPlaceOrderOnAction.setForeground(new java.awt.Color(255, 255, 255));
         btnPlaceOrderOnAction.setText("Place Order");
+        btnPlaceOrderOnAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlaceOrderOnActionActionPerformed(evt);
+            }
+        });
 
         btnBackOnAction.setBackground(new java.awt.Color(0, 0, 0));
         btnBackOnAction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -193,6 +215,9 @@ public class PlaceOrderForm extends javax.swing.JFrame {
                 btnCancelOnActionActionPerformed(evt);
             }
         });
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel9.setText("Customer Name:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -215,20 +240,23 @@ public class PlaceOrderForm extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(141, 141, 141)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(28, 28, 28)
-                                .addComponent(txtOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(91, 91, 91)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(50, 50, 50)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtCustomerId, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                                            .addComponent(txtOrderId, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                                            .addComponent(txtCustomerName)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(cmbOrderStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel9)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(119, 119, 119)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -252,27 +280,34 @@ public class PlaceOrderForm extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnPlaceOrderOnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPlaceOrderOnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel9))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(36, 36, 36)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addComponent(btnBackOnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)))
                 .addComponent(jLabel5)
@@ -284,7 +319,7 @@ public class PlaceOrderForm extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cmbOrderStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(btnCancelOnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,7 +329,7 @@ public class PlaceOrderForm extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblNetTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 32, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
 
         pack();
@@ -347,6 +382,52 @@ public class PlaceOrderForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtQtyKeyReleased
 
+    private void btnPlaceOrderOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaceOrderOnActionActionPerformed
+       String orderId = txtOrderId.getText().trim();
+       String customerId = txtCustomerId.getText().trim();
+       String customerName = txtCustomerName.getText().trim();
+       String qtyText = txtQty.getText().trim();
+       
+        String selectedStatusStr = cmbOrderStatus.getSelectedItem().toString().toUpperCase();
+        OrderStatus status;
+        
+        try{
+            status = OrderStatus.valueOf(selectedStatusStr);
+        }catch(IllegalArgumentException e){
+            status = OrderStatus.PROCESSING;
+        }
+        
+        if(customerId.isEmpty()||customerName.isEmpty()||qtyText.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Please fill all the details","Validation Error",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        try{
+            int qty = Integer.parseInt(qtyText);
+            
+            if(qty<0){
+                JOptionPane.showMessageDialog(this,"Quantity must be greater than 0!","Validation Error",JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            double burgerPrice = 500.0;
+            
+             boolean isSaved = orderController.placeOrder(orderId, customerId, customerName, qty, burgerPrice, status);
+             
+              if (isSaved) {
+            JOptionPane.showMessageDialog(this, "Order Placed Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            clearFormFields(); // Clears screen and loads the next set of IDs
+        } else {
+            JOptionPane.showMessageDialog(this, "Error: Failed to save the order.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        }catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid numeric quantity!", "Validation Error", JOptionPane.WARNING_MESSAGE);
+    }
+        
+        
+       
+    }//GEN-LAST:event_btnPlaceOrderOnActionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -387,8 +468,8 @@ public class PlaceOrderForm extends javax.swing.JFrame {
     private javax.swing.JButton btnBackOnAction;
     private javax.swing.JButton btnCancelOnAction;
     private javax.swing.JButton btnPlaceOrderOnAction;
+    private javax.swing.JComboBox<String> cmbOrderStatus;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
@@ -398,12 +479,14 @@ public class PlaceOrderForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblNetTotal;
     private javax.swing.JTextField txtCustomerId;
+    private javax.swing.JTextField txtCustomerName;
     private javax.swing.JTextField txtOrderId;
     private javax.swing.JTextField txtQty;
     // End of variables declaration//GEN-END:variables

@@ -9,6 +9,8 @@ import burgershopoop.model.Item;
 import burgershopoop.model.Order;
 import burgershopoop.model.OrderItem;
 import java.util.ArrayList;
+import burgershoputil.OrderStatus;
+
 
 /**
  *
@@ -66,7 +68,7 @@ public class OrderController {
         
          Customer lastCustomer = customerList.get(customerList.size()-1);
         
-         String lastId = lastCustomer.getId(); 
+         String lastId = lastCustomer.getCustomerId(); 
         
         try{
             int lastNum = Integer.parseInt(lastId.substring(1));
@@ -78,7 +80,36 @@ public class OrderController {
     }
     }
     
+    public Customer findCustomerById(String customerId){ 
+            for(Customer customer: customerList){
+                if(customer.getCustomerId().equalsIgnoreCase(customerId)){
+                    return customer;
+                }
+            }
+            return null;
     }
+    
+   public boolean placeOrder(String orderId, String customerId, String customerName, int qty, double unitPrice, OrderStatus status) {
+       try{
+           Customer newCustomer = new Customer(customerId,customerName,"","");
+           customerList.add(newCustomer);
+           
+           Order newOrder = new Order(orderId, customerId,new java.util.Date(), status);
+           orderList.add(newOrder);
+           
+           String orderItemId = String.format("OI%03d",orderItemList.size()+1);
+           OrderItem newOrderItem = new OrderItem(orderItemId, orderId, "I001", qty, unitPrice);
+           orderItemList.add(newOrderItem);
+           return true;
+       }catch (Exception e) {
+        e.printStackTrace();
+        return false;
+         }
+           
+       }
+   }
+   
+
    
 
     
