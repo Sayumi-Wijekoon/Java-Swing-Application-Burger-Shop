@@ -8,8 +8,12 @@ import burgershopoop.model.Customer;
 import burgershopoop.model.Item;
 import burgershopoop.model.Order;
 import burgershopoop.model.OrderItem;
+import burgershopoop.controller.CustomerController;
 import java.util.ArrayList;
 import burgershoputil.OrderStatus;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 
 /**
@@ -48,7 +52,7 @@ public class OrderController {
     
     Order lastOrder = orderList.get(orderList.size()-1);
     
-    String lastId = lastOrder.getorderId();
+    String lastId = lastOrder.getOrderId();
     
     try{
         
@@ -107,6 +111,66 @@ public class OrderController {
          }
            
        }
+   
+   public class BestCustomer{
+       private String customerId;
+       private String name;
+       private double total;
+   
+   
+  public BestCustomer(String customerId, String name, double total) {
+      this.customerId = customerId;
+      this.name = name;
+      this.total = total;
+      
+  }
+  
+  public String getCustomerId(){
+      return customerId;
+  }
+  
+  public String getName() {
+      return name;
+  }
+  
+  public double getTotal(){
+      return total;
+  }
+   }
+   
+   public List<BestCustomer> getBestCustomers(){
+       List<BestCustomer> bestCustomerList = new ArrayList<>();
+       
+       for(Customer customer : customerList){
+           double customerTotal = 0.0;
+       
+       
+       for (Order order : orderList){
+         //  if(order.getCustomerId().equalsIgnoreCase(Customer.getCustomerId()) && order.getOrderStatus() != OrderStatus.CANCELLED);{
+            if (order.getCustomerId().equalsIgnoreCase(customer.getCustomerId()) 
+                    && order.getOrderStatus() != OrderStatus.CANCELLED) {
+                
+                for(OrderItem orderItem : orderItemList){
+                     if (orderItem.getOrderId().equalsIgnoreCase(order.getOrderId())) {
+                        customerTotal += (orderItem.getQtyOnHand() * orderItem.getUnitPrice());
+                    }
+                }
+            }        
+          }
+       
+         bestCustomerList.add(new BestCustomer(customer.getCustomerId(), customer.getName(), customerTotal));
+       }
+       
+        Collections.sort(bestCustomerList, new Comparator<BestCustomer>() {
+        @Override
+        public int compare(BestCustomer c1, BestCustomer c2) {
+            return Double.compare(c2.getTotal(), c1.getTotal());
+        }
+    });
+
+    return bestCustomerList;
+   }
+   
    }
    
 

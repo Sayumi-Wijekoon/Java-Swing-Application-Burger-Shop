@@ -349,7 +349,14 @@ public class PlaceOrderForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackOnActionActionPerformed
 
     private void btnCancelOnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelOnActionActionPerformed
-              //
+              txtCustomerName.setText("");
+              txtQty.setText("");
+              lblNetTotal.setText("0.00");
+              
+              if(cmbOrderStatus != null){
+                  cmbOrderStatus.setSelectedIndex(0);
+              }
+              
 
     }//GEN-LAST:event_btnCancelOnActionActionPerformed
 

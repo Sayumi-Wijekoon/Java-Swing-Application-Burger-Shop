@@ -25,7 +25,7 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public String getorderId() {
+    public String getOrderId() {
         return orderId;
     }
 
