@@ -33,8 +33,7 @@ public class OrderController {
         this.itemList = itemList;
         this.orderList = orderList;
         this.orderItemList = orderItemList;
-        
-            prepopulateBurgerItem();
+        prepopulateBurgerItem();
     }
     
     
@@ -112,7 +111,7 @@ public class OrderController {
            
        }
    
-   public class BestCustomer{
+   public static class BestCustomer{
        private String customerId;
        private String name;
        private double total;
@@ -170,6 +169,24 @@ public class OrderController {
 
     return bestCustomerList;
    }
+   
+   public Order findOrderById(String orderId) {
+    for (Order order : orderList) {
+        if (order.getOrderId().equalsIgnoreCase(orderId)) {
+            return order;
+        }
+    }
+    return null; // Return null if Order ID is not found
+}
+   
+   public OrderItem findOrderItemByOrderId(String orderId) {
+    for (OrderItem item : orderItemList) {
+        if (item.getOrderId().equalsIgnoreCase(orderId)) {
+            return item;
+        }
+    }
+    return null;
+}
    
    }
    

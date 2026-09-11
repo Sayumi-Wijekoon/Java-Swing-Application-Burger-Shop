@@ -3,20 +3,55 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package burgershopoop.view;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import burgershopoop.controller.OrderController.BestCustomer;
 
 /**
  *
  * @author sayum
  */
 public class SearchBestCustomerForm extends javax.swing.JFrame {
-
+    
+    private OrderController orderController;
     /**
      * Creates new form SearchBestCustomerForm
      */
     public SearchBestCustomerForm() {
         initComponents();
          this.setLocationRelativeTo(null); 
+         orderController = new OrderController();
+         
+//    public SearchBestCustomerForm(OrderController orderController) {
+//    this.orderController = orderController;
+//    initComponents();
+//    
+//    // Populate table automatically on window load
+//    loadBestCustomersTable();
+//    }
     }
+
+    
+    private void loadBestCustomersTable() {
+    // 1. Get the table model from your JTable
+    DefaultTableModel dtm = (DefaultTableModel) tblBestCustomers.getModel();
+    
+    // 2. Clear any existing rows in the table
+    dtm.setRowCount(0);
+    
+    // 3. Fetch the sorted best customer list from the controller
+    List<BestCustomer> bestCustomers = orderController.getBestCustomer();
+    
+    // 4. Add each customer as a new row in the table
+    for (BestCustomer customer : bestCustomers) {
+        Object[] rowData = {
+            customer.getCustomerId(),
+            customer.getName(),
+            String.format("%.2f", customer.getTotal()) // Formatted to 2 decimal places (e.g., 75000.00)
+        };
+        dtm.addRow(rowData);
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,7 +66,7 @@ public class SearchBestCustomerForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblBestCustomers = new javax.swing.JTable();
         btnBackOnAction = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
@@ -61,7 +96,7 @@ public class SearchBestCustomerForm extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblBestCustomers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -80,7 +115,7 @@ public class SearchBestCustomerForm extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblBestCustomers);
 
         btnBackOnAction.setBackground(new java.awt.Color(0, 0, 0));
         btnBackOnAction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -173,6 +208,6 @@ public class SearchBestCustomerForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblBestCustomers;
     // End of variables declaration//GEN-END:variables
 }
