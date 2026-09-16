@@ -6,6 +6,8 @@ package burgershopoop.view;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import burgershopoop.controller.OrderController.BestCustomer;
+import burgershopoop.controller.OrderController;
+        
 
 /**
  *
@@ -20,14 +22,14 @@ public class SearchBestCustomerForm extends javax.swing.JFrame {
     public SearchBestCustomerForm() {
         initComponents();
          this.setLocationRelativeTo(null); 
-         orderController = new OrderController();
+        // orderController = new OrderController();
          
-//    public SearchBestCustomerForm(OrderController orderController) {
-//    this.orderController = orderController;
-//    initComponents();
+   public SearchBestCustomerForm(OrderController orderController) {
+   this.orderController = orderController;
+   initComponents();
 //    
 //    // Populate table automatically on window load
-//    loadBestCustomersTable();
+   loadBestCustomersTable();
 //    }
     }
 
@@ -40,7 +42,7 @@ public class SearchBestCustomerForm extends javax.swing.JFrame {
     dtm.setRowCount(0);
     
     // 3. Fetch the sorted best customer list from the controller
-    List<BestCustomer> bestCustomers = orderController.getBestCustomer();
+    List<BestCustomer> bestCustomers = orderController.getBestCustomers();
     
     // 4. Add each customer as a new row in the table
     for (BestCustomer customer : bestCustomers) {
